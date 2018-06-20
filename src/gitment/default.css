@@ -1,6 +1,5 @@
 .gitment-container {
   font-family: sans-serif;
-  font-size: 14px;
   line-height: 1.5;
   color: #333;
   word-wrap: break-word;
@@ -202,7 +201,7 @@ a.gitment-comment-name:visited {
 .gitment-editor-tab {
   display: inline-block;
   padding: 11px 12px;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 20px;
   color: #666;
   text-decoration: none;
@@ -311,7 +310,7 @@ a.gitment-editor-logout-link:hover {
 
   max-width: 100%;
   margin: 0;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 1.6;
 
   background-color: #fff;
@@ -337,7 +336,7 @@ a.gitment-editor-logout-link:hover {
   background-color: transparent;
 
   width: 100%;
-  font-size: 14px;
+  font-size: 1em;
 
   line-height: 1.5;
   word-wrap: break-word;
@@ -357,7 +356,7 @@ a.gitment-editor-logout-link:hover {
 a.gitment-editor-footer-tip {
   display: inline-block;
   padding-top: 10px;
-  font-size: 12px;
+  font-size: 0.8em;
   color: #666;
 }
 
@@ -397,7 +396,7 @@ a.gitment-editor-footer-tip:hover {
   position: relative;
   display: inline-block;
   padding: 7px 13px;
-  font-size: 14px;
+  font-size: 1em;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -434,7 +433,7 @@ a.gitment-editor-footer-tip:hover {
   margin-top: 30px;
   margin-bottom: 20px;
   text-align: right;
-  font-size: 12px;
+  font-size: 0.8em;
 }
 
 /*
@@ -447,7 +446,7 @@ a.gitment-editor-footer-tip:hover {
   line-height: 1.5;
   color: #333;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 16px;
+  font-size: 1.2em;
   line-height: 1.5;
   word-wrap: break-word;
 }
@@ -712,32 +711,32 @@ a.gitment-editor-footer-tip:hover {
 }
 
 .gitment-markdown h1 {
-  font-size: 32px;
+  font-size: 2em;
   font-weight: 600;
 }
 
 .gitment-markdown h2 {
-  font-size: 24px;
+  font-size: 1.6em;
   font-weight: 600;
 }
 
 .gitment-markdown h3 {
-  font-size: 20px;
+  font-size: 1.4em;
   font-weight: 600;
 }
 
 .gitment-markdown h4 {
-  font-size: 16px;
+  font-size: 1.2em;
   font-weight: 600;
 }
 
 .gitment-markdown h5 {
-  font-size: 14px;
+  font-size: 1em;
   font-weight: 600;
 }
 
 .gitment-markdown h6 {
-  font-size: 12px;
+  font-size: 0.8em;
   font-weight: 600;
 }
 
@@ -775,7 +774,7 @@ a.gitment-editor-footer-tip:hover {
 
 .gitment-markdown code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 12px;
+  font-size: 0.8em;
 }
 
 .gitment-markdown pre {
@@ -887,7 +886,7 @@ a.gitment-editor-footer-tip:hover {
 .gitment-markdown kbd {
   display: inline-block;
   padding: 3px 5px;
-  font-size: 11px;
+  font-size: 0.8em;
   line-height: 10px;
   color: #444d56;
   vertical-align: middle;
@@ -1042,7 +1041,7 @@ a.gitment-editor-footer-tip:hover {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   margin: 0;
-  font-size: 85%;
+  font-size: 0.8em;
   background-color: rgba(27,31,35,0.05);
   border-radius: 0;
 }
@@ -1060,7 +1059,7 @@ a.gitment-editor-footer-tip:hover {
 .gitment-markdown pre>code {
   padding: 0;
   margin: 0;
-  font-size: 100%;
+  font-size: 1em;
   word-break: normal;
   white-space: pre;
   background: transparent;
@@ -1080,7 +1079,7 @@ a.gitment-editor-footer-tip:hover {
 .gitment-markdown pre {
   padding: 16px;
   overflow: auto;
-  font-size: 85%;
+  font-size: 0.8em;
   line-height: 1.45;
   background-color: #f5f5f5;
   border-radius: 0;

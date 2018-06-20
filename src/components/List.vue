@@ -1,10 +1,12 @@
 <template>
     <div class="issue-list">
         <div class="issue-item" v-for="item in issues">
-            <div class="issue-text">
-                <router-link :to="'/detail/'+item.number">{{item.title}}</router-link>
-                <p v-html="summary(item.body_html)"></p>
-            </div>
+            <router-link :to="'/detail/'+item.number">
+                <div class="issue-text">
+                    <h2>{{item.title}}</h2>
+                    <p v-html="summary(item.body_html)"></p>
+                </div>
+            </router-link>
         </div>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <section v-show="!loading">
         <div class="content">
-            <ul>
+            <ul v-if="detail.paragraph && detail.paragraph.length" class="content-nav">
                 <a v-for="p in detail.paragraph" :href="'#' + p.id" :class="{'active': hash === p.id}" @click="hash = p.id">
                     <li v-html="p.label"></li>
                 </a>
@@ -97,40 +97,7 @@
 </script>
 
 <style scoped>
-ul {
-    position: fixed;
-    top: 60px;
-    left: 20px;
-    max-width: calc(15% + 10px);
-    height: calc(100% - 90px);
-    padding: 0;
-    list-style: none;
-    overflow: auto;
-}
 
-ul a {
-    text-decoration: none;
-    color: #000;
-}
 
-ul li {
-    padding-left: 10px;
-    border-left: 2px solid #eee;
-    line-height: 25px;
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
-ul a.active li {
-    border-color: #24292e;
-}
-
-article,
-#comments {
-    margin: 0 0 0 15%;
-    padding: 25px 50px;
-    background-color: #fff;
-}
 </style>
