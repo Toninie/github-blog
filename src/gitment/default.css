@@ -249,7 +249,7 @@ a.gitment-editor-logout-link:hover {
 
 .gitment-comment-body {
   position: relative;
-  margin: 12px 15px;
+  margin: 0 15px;
   overflow: hidden;
   border-radius: 3px;
 }

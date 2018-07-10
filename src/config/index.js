@@ -1,9 +1,10 @@
 const OWNER = "Toninie";
-const REPO = "toninie.github.io";
-const OAUTH = {
-    client_id: '',
-    client_secret: '',
-};
-const TITLE = "test";
+const REPO = "Toninie.github.io";
+const OAUTH = [
+    '',// client_id
+    '',// client_secret
+];
+
+const TITLE = "Mr.Toni Barbershop";
 
 export {OWNER,REPO,OAUTH,TITLE};

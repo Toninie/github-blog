@@ -1,37 +1,28 @@
 <template>
     <section v-show="!loading">
         <div class="content">
-            <ul v-if="detail.paragraph && detail.paragraph.length" class="content-nav">
-                <a v-for="p in detail.paragraph" :href="'#' + p.id" :class="{'active': hash === p.id}" @click="hash = p.id">
-                    <li v-html="p.label"></li>
-                </a>
-            </ul>
             <article class="gitment-comment-body gitment-markdown">
-                <h1>{{detail.title}}</h1>
+                <h1 id="title" class="nav-anchor">{{detail.title}}</h1>
                 <div v-html="detail.html"></div>
             </article>
         </div>
-        <div id="comments"></div>
+        <div id="comments" class="nav-anchor"></div>
     </section>
 </template>
 <script>
     import {
         OWNER,REPO,OAUTH,TITLE
-    } from '../config'
+    } from '@/config'
 
-    import '../gitment/default.css'
-    import Gitment from '../gitment/gitment.js'
+    import '@/gitment/default.css'
+    import Gitment from '@/gitment/gitment.js'
+    import bus from '@/bus'
 
     export default {
         name: 'Detail',
         data() {
-            let hash = (window.location.hash || '').replace(/^#/, '');
-
-            window.location.hash = '';
-
             return {
                 detail: {},
-                hash: hash,
                 loading: false,
             }
         },
@@ -52,7 +43,10 @@
                 id: this.$route.params.id,
                 owner: OWNER,
                 repo: REPO,
-                oauth: OAUTH
+                oauth: {
+                    client_id: OAUTH[0],
+                    client_secret: OAUTH[1]
+                }
             });
 
             gitment.render(document.getElementById('comments'));
@@ -63,34 +57,67 @@
                     this.getDetail(issue);
                     this.loading = false;
                 })
-                .catch(() => {
-                    this.$router.push('error');
+                .catch(error => {
+                    this.$router.push('/error');
                 });
         },
         methods: {
             getDetail ( issue ) {
-                const paragraph = [];
+                let paragraph = [],
+                    title = issue.title,
+                    p = {
+                        id: 'title',
+                        children: paragraph,
+                        label: '正文',
+                        level: 1,
+                        isExpand: true
+                    },
+                    c = {
+                        id: 'comments',
+                        label: '评论'
+                    },
+                    nav = [p, c],
+                    map = {'title': p, 'comments': c},
+                    count = 0,
+                    html = issue.body_html || '';
 
-                let html = issue.body_html || '';
+                this.detail.title = document.title = title;
 
-                this.detail.title = document.title = issue.title;
-
-                this.detail.html = html.replace(/(\<h2\>)(.+)(?=\<\/h2\>)/ig, (str, key) => {
+                this.detail.html = html.replace(/(\<h\d+\>)(.+)(?=\<\/h\d+\>)/ig, (str, key) => {
                     let t = {
-                        id: 'content_title_' + paragraph.length,
-                        label: str.replace(/\<h\d\>/, '')
+                        id: 'content_title_' + (count ++),
+                        label: str.replace(/\<h\d\>/, ''),
+                        level: str.match(/\d+(?=\>)/)[0],
+                        isExpand: false
                     };
 
-                    paragraph.push(t);
+                    map[t.id] = t;
 
-                    return str.replace(/(\<h\d)/, `$1 id=${t.id}`);
+                    addParagraph(t);
+
+                    return str.replace(/(\<h\d)/, `$1 id=${t.id} class="nav-anchor"`);
                 });
 
-                this.detail.paragraph = paragraph;
+                bus.$emit('sendToNav', {nav, map});
 
-                setTimeout(() => {
-                    window.location.hash = this.hash;
-                }, 0);
+                function addParagraph( t ) {
+                    let l = t.level - p.level;
+
+                    if ( l === 1 ) {
+                        t.parent = p;
+                        !p.children && (p.children = []);
+                        p.children.push(t);
+                        return;
+                    } else if ( l > 1 ) {
+                        let children = p.children;
+
+                        p = children[children.length - 1];
+                    } else {
+                        p = p.parent;
+                    }
+
+                    addParagraph(t);
+                }
             }
         }
     }

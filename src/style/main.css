@@ -17,9 +17,140 @@ html, body {
 }
 
 .context {
-    padding: 10px 50px;
+    width: calc(100% - 300px);
+    padding: 0 10px 10px 50px;
     height: calc(100% - 20px);
     overflow: auto;
+}
+
+/* navigation */
+nav {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 230px;
+    max-height: 0;
+    background-color: #fff;
+    overflow: auto;
+}
+
+nav.active {
+    transition: max-height 1s;
+    /* max-height: 1000px; */
+    max-height: calc(100% - 70px);
+}
+
+nav > * {
+    position: relative;
+    text-align: center;
+}
+
+nav > div > p {
+    margin: 10px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.label-nav > a {
+    display: inline-block;
+    margin: 5px;
+    padding: 0 10px;
+    line-height: 20px;
+    font-size: 0.8em;
+    color: #000;
+    border: 1px solid #000;
+    text-decoration: none;
+}
+
+.label-nav > a.router-link-active {
+    color: #fff!important;
+}
+
+.label-nav > a:not(.router-link-active) {
+    background-color: #fff!important;
+}
+
+.nav-tree-item {
+    position: relative;
+}
+
+.nav-tree-item a {
+    display: block;
+    padding: 0 10px;
+    line-height: 25px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    text-align: left;
+}
+
+.nav-tree-item .nav-tree {
+    max-height: 0;
+    overflow: auto;
+    counter-reset: i;
+    transition: max-height 1s;
+}
+
+.active > .nav-tree,
+.nav-tree-item .nav-tree.expand {
+    max-height: 1000px;
+}
+
+.nav-tree-item .nav-tree-item > a:before {
+    counter-increment: i;
+    content: counters(i,".")" ";
+}
+
+.nav-tree .active > a {
+    font-weight: bold;
+    background-color: #24292e;
+    color: #fff;
+}
+
+.nav-tree-item .icon-circle-down {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    line-height: 25px;
+    transition: transform 1s;
+    cursor: pointer;
+}
+
+.nav-tree + .icon-circle-down {
+    display: block;
+}
+
+.nav-tree.expand + .icon-circle-down,
+.active > .icon-circle-down {
+    transform: rotate(180deg);
+}
+
+.active > .icon-circle-down {
+    color: #fff;
+}
+
+.hidden-btns {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    line-height: 50px!important;
+    font-size: 2em;
+    color: #fff;
+    z-index: 11;
+    text-align: center;
+    transition: transform 1s;
+}
+
+.hidden-btns.active {
+    transform: rotate(180deg);
+
 }
 
 /* header */
@@ -101,18 +232,17 @@ footer p {
     height: 100%;
 }
 
-.loading-tips svg {
+.loading-tips > div {
     position: absolute;
-    width: 60px;
-    height: 60px;
     top: calc(50% - 30px);
     left: 0;
     right: 0;
+    line-height: 60px;
     margin: auto;
+    font-size: 60px;
     -webkit-animation: rotateplane 1.5s infinite ease-in-out;
     animation: rotateplane 1.5s infinite ease-in-out;
-    background-color: #fff;
-    border-radius: 30px;
+    text-align: center;
 }
 
 .loading-tips p {
@@ -122,37 +252,17 @@ footer p {
     text-align: center;
 }
  
-@-webkit-keyframes rotateplane {
-    0% { -webkit-transform: perspective(120px) }
-    25% { -webkit-transform: perspective(120px) rotateY(180deg) }
-    50% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
-    75% { -webkit-transform: perspective(120px) rotateY(360deg)  rotateX(180deg) }
-    100% { -webkit-transform: perspective(120px) rotateY(360deg)  rotateX(360deg) }
-
-}
- 
 @keyframes rotateplane {
     0% {
-    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
-    } 25% {
-    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
-    } 50% {
-    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    } 75% {
-    transform: perspective(120px) rotateX(-360.1deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-360.1deg) rotateY(-179.9deg)
+    transform: perspective(120px) rotateZ(0deg);
     } 100% {
-    transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
-    -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
+    transform: perspective(120px) rotateZ(359deg);
     }
 }
 
 /* list */
 .issue-item {
-    margin: 20px 0;
+    margin-bottom: 20px;
     padding: 40px;
     background-color: #fff;
 }
@@ -195,45 +305,20 @@ footer p {
     line-clamp: 4;
 }
 
-/* detail */
-ul.content-nav {
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    padding-left: 17px;
-    max-width: 2px;
-    list-style: none;
-    overflow: hidden;
-    z-index: 99;
-    background-color: rgba(155,155,155,0.5);
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    transition: max-width 2s ease;
-}
-
-ul.content-nav:hover,
-ul.content-nav:active {
-    max-width: 1000px;
-}
-
-ul.content-nav a {
-    text-decoration: none;
-    color: #000;
-}
-
-ul.content-nav li {
+.issue-label {
+    display: inline-block;
+    margin: 5px 5px 0 0;
     padding: 0 10px;
-    border-left: 2px solid rgba(155,155,155,0.5);
-    line-height: 25px;
+    line-height: 20px;
+    color: #fff;
     font-size: 0.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: #fff;
+    text-decoration: none;
 }
 
-ul.content-nav a.active li {
-    border-color: #24292e;
+/* detail */
+.content {
+    padding: 20px;
+    background-color: #fff;
 }
 
 #comments {
@@ -241,13 +326,43 @@ ul.content-nav a.active li {
     background-color: #fff;
 }
 
-@media screen and (max-width: 600px) {
+/* error */
+.error-page {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+@media screen and (max-width: 1000px) {
     html, body {
         font-size: 12px;
     }
 
+    .main-info font {
+        display: none;
+    }
+
     .context {
+        width: auto;
         padding: 10px;
+    }
+
+    nav,
+    nav.active {
+        max-height: 0;
+        box-shadow: -2px 2px 10px #666;
+    }
+
+    .hidden-btns {
+        display: block;
+    }
+
+    nav:hover,
+    .hidden-btns.active + nav {
+        /* max-height: 1000px; */
+        max-height: calc(100% - 70px);
     }
 
     .issue-item {

@@ -1,6 +1,6 @@
 <template>
-    <div class="content">
-        <p>页面不存在，{{seconds}}秒后回到首页</p>
+    <div class="error-page">
+        <div class="icon-github">页面不存在，{{seconds}}秒后回到首页</div>
     </div>
 </template>
 <script>
@@ -13,9 +13,11 @@ export default {
         }
     },
     mounted() {
+        this.$emit('loading', false);
+
         let timer = setInterval(() => {
-            if ( -- this.seconds ) {
-                this.$router.push('/');
+            if ( -- this.seconds <= 0 ) {
+                if ( this.$route.path === '/error' ) this.$router.push('/');
                 clearInterval(timer);
             }
         }, 1000);

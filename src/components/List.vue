@@ -7,6 +7,15 @@
                     <p v-html="summary(item.body_html)"></p>
                 </div>
             </router-link>
+            <router-link 
+                class="issue-label"
+                v-for="l in item.labels"
+                :to="'/label/'+l.name"
+                v-bind:style="{
+                    'backgroundColor': '#' + l.color
+                }">
+                {{l.name}}
+            </router-link>
         </div>
     </div>
 </template>
