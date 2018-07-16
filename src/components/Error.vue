@@ -16,8 +16,8 @@ export default {
         this.$emit('loading', false);
 
         let timer = setInterval(() => {
-            if ( -- this.seconds <= 0 ) {
-                if ( this.$route.path === '/error' ) this.$router.push('/');
+            if ( -- this.seconds < 1 ) {
+                if ( !this._isDestroyed ) this.$router.push('/');
                 clearInterval(timer);
             }
         }, 1000);

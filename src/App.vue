@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
+    <div id="app" ref="app" @scroll="onScrolling" @click="isNav = false">
         <app-header></app-header>
-        <section ref="context" class="context" @scroll="onScrolling" @click="isNav = false">
+        <section class="context">
             <router-view ref="context-view" :issues="issues" @loading="setLoading">
             </router-view>
             <div v-show="loading" class="loading-tips">
@@ -10,7 +10,7 @@
             </div>
         </section>
 
-        <div class="hidden-btns icon-circle-down" :class="{'active': isNav}" @click="isNav = !isNav"></div>
+        <div class="hidden-btns icon-circle-down" :class="{'active': isNav}" @click.stop="isNav = !isNav"></div>
         <app-nav ref="app-nav" :labels="labels"></app-nav>
 
         <footer class="main">
@@ -91,12 +91,12 @@
             },
             onScrolling ( e ) {
                 const routeName = this.$route.name;
-                const $context = this.$refs['context'];
-                const scrollTop = $context.scrollTop;
+                const $app = this.$refs['app'];
+                const scrollTop = $app.scrollTop;
 
                 switch ( routeName ) {
                     case 'list':
-                        if ( !this.isPause && routeName === 'list' && $context.scrollHeight === scrollTop + $context.clientHeight ) {
+                        if ( !this.isPause && routeName === 'list' && $app.scrollHeight === scrollTop + $app.clientHeight ) {
                             clearTimeout(this.timer);
                             this.timer = setTimeout(() => {
                                 this.getIssues();
@@ -105,7 +105,7 @@
 
                         break;
                     case 'detail':
-                        let $ids = $context.getElementsByClassName('nav-anchor'),
+                        let $ids = $app.getElementsByClassName('nav-anchor'),
                             $hash;
 
                         for ( let i = 0, len = $ids.length; i < len; ++i ) {

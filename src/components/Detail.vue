@@ -103,7 +103,7 @@
                 function addParagraph( t ) {
                     let l = t.level - p.level;
 
-                    if ( l === 1 ) {
+                    if ( l == 1 || (l < 1 && p.level == 1) || (l > 1 && !p.children) ) {
                         t.parent = p;
                         !p.children && (p.children = []);
                         p.children.push(t);

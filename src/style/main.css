@@ -4,28 +4,31 @@ html, body {
 }
 
 #app {
-    padding: 50px 0;
-    height: calc(100% - 100px);
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    height: calc(100% - 70px);
     background-color: #fafafa;
+    overflow: auto;
 }
 
 .main {
-    position: absolute;
+    position: fixed;
     width: 100%;
     overflow: hidden;
     z-index: 10;
 }
 
 .context {
-    width: calc(100% - 300px);
-    padding: 0 10px 10px 50px;
-    height: calc(100% - 20px);
-    overflow: auto;
+    position: relative;
+    width: auto;
+    height: 100%;
+    padding: 0 260px 0 50px;
 }
 
 /* navigation */
 nav {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 50px;
     width: 230px;
@@ -36,7 +39,6 @@ nav {
 
 nav.active {
     transition: max-height 1s;
-    /* max-height: 1000px; */
     max-height: calc(100% - 70px);
 }
 
@@ -136,7 +138,7 @@ nav > div > p {
 
 .hidden-btns {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 50px;
@@ -206,6 +208,7 @@ header.main a {
 /* footer */
 footer {
     bottom: 0;
+    background-color: #fafafa;
 }
 
 footer a {
@@ -317,7 +320,7 @@ footer p {
 
 /* detail */
 .content {
-    padding: 20px;
+    padding: 20px 5px;
     background-color: #fff;
 }
 
@@ -345,8 +348,11 @@ footer p {
     }
 
     .context {
-        width: auto;
         padding: 10px;
+    }
+
+    .content {
+        padding: 15px 0;
     }
 
     nav,
